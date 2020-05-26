@@ -1,0 +1,186 @@
+' Gambas class file
+
+Private $Pathlist As String[]
+Private $onCopy As Boolean
+Private $onDecrypt As Boolean
+Private $isNext As Boolean
+Private $isFinishCopy As Boolean
+Private $isFinishDecrypt As Boolean
+Private $i As Integer
+Private $watch As Watch
+Private $currendsize As Long
+
+
+
+Public Sub Button1_Click()
+
+  Button1.Enabled = False
+  Try Mkdir ButtonBox2.Text &/ ".work"
+  Try Kill ButtonBox2.Text &/ ".work" &/ "game.bin"
+
+  $watch = New Watch(ButtonBox2.Text &/ ".work") As "Watch"
+  MlookAtgames.setdir(ButtonBox1.Text)
+  $Pathlist = MlookAtgames.look()["Path"]
+  $isNext = True
+  Me.Copy()
+  Timer1.Start
+
+End
+
+Public Sub Watch_Close()
+
+  Print Watch.Name
+  Select Watch.Name
+    Case "game.bin"
+
+    Case "game.nca"
+      If $onDecrypt Then
+        $onDecrypt = False
+        $isFinishDecrypt = True
+        Me.Decryptfin()
+      Endif
+  End Select
+
+End
+
+Public Sub Copy()
+
+  Dim a As String[]
+
+  If $i = $Pathlist.Length Then
+
+    FTitleName.ButtonBox1.Text = ButtonBox2.Text
+    FTitleName.Button1_Click()
+
+  Else
+    If $isNext Then
+      $watch.Pause()
+      $isNext = False
+      ProgressBar1.Value = 0
+      ProgressBar2.Value = 0
+      ProgressBar3.Value = $i / $Pathlist.Length
+      Try Kill ButtonBox2.Text &/ ".work/game.bin"
+      Wait 3
+      $onCopy = True
+      a = Split($Pathlist[$i], "/")
+      File.Save(ButtonBox2.Text &/ ".work/game.bin.path", "/" & a[a.Find("registered")] &/ a[a.Find("registered") + 1] &/ a[a.Find("registered") + 2])
+      $currendsize = Stat($Pathlist[$i]).Size
+      $watch.Resume
+      Shell "cat " & $Pathlist[$i] & " > " & ButtonBox2.Text &/ ".work/game.bin"
+
+
+
+
+
+      Print "Copy now.... " & $Pathlist[$i]
+      $i += 1
+
+
+
+
+    Endif
+  Endif
+
+End
+
+Public Sub Decrypt()
+
+  If $isFinishCopy Then
+
+    $isFinishCopy = False
+    Shell "/usr/lib/pokkentools/hactool/hactool -tnax0 --plaintext=" & ButtonBox2.Text &/ ".work/game.nca" & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox2.Text &/ ".work/game.bin.path") & " " & ButtonBox2.Text &/ ".work/game.bin"
+    $onDecrypt = True
+  Endif
+
+End
+
+Public Sub Decryptfin()
+
+  Dim a As String[]
+  Dim titleID As String
+  Dim type As String
+  Dim i As Integer
+
+  If $isFinishDecrypt Then
+    $isFinishDecrypt = False
+    Shell "/usr/lib/pokkentools/hactool/hactool " & ButtonBox2.Text &/ ".work/game.nca >/tmp/hactool.txt" Wait
+
+    a = Split(File.Load("/tmp/hactool.txt"), ": " & gb.NewLine, "", True)
+
+    Try titleID = a[a.Find("Title") + 2]
+    Try type = a[a.Find("Type") + 1]
+    If Error Then
+    Else
+      Try Mkdir ButtonBox2.Text &/ titleID
+      $currendsize = Stat(ButtonBox2.Text &/ ".work/game.nca").Size
+      Wait 0.3
+      If Exist(ButtonBox2.Text &/ titleID &/ type & ".nca") Then
+
+        i = 1
+        While Exist(ButtonBox2.Text &/ titleID &/ type & i & ".nca")
+          i += 1
+
+        Wend
+
+        Move ButtonBox2.Text &/ ".work/game.nca" Kill ButtonBox2.Text &/ titleID &/ type & i & ".nca"
+
+      Else
+        Move ButtonBox2.Text &/ ".work/game.nca" Kill ButtonBox2.Text &/ titleID &/ type & ".nca"
+      Endif
+      While Not Stat(ButtonBox2.Text &/ titleID &/ type & ".nca").Size = $currendsize
+        Print "wait hold on"
+      Wend
+    Endif
+    $isNext = True
+    Me.Copy()
+    ProgressBar3.Value = $i / $Pathlist.Length
+  Endif
+
+End
+
+Public Sub Timer1_Timer()
+
+
+
+
+
+  If $onCopy Then
+
+    Try ProgressBar1.Value = Stat(ButtonBox2.Text &/ ".work/game.bin").Size / $currendsize
+    If Exist(ButtonBox2.Text &/ ".work/game.bin") Then
+      If Stat(ButtonBox2.Text &/ ".work/game.bin").Size = $currendsize Then
+        If $onCopy Then
+          $onCopy = False
+          $isFinishCopy = True
+          Me.Decrypt()
+        Endif
+      Endif
+    Endif
+
+  Else If $onDecrypt Then
+
+    Try ProgressBar2.Value = Stat(ButtonBox2.Text &/ ".work/game.nca").Size / $currendsize
+
+
+
+  Endif
+
+
+
+End
+
+Public Sub ButtonBox1_Click()
+
+  If Not Dialog.SelectDirectory() Then
+    ButtonBox1.Text = Dialog.path
+  Endif
+
+End
+
+Public Sub ButtonBox2_Click()
+
+  If Not Dialog.SelectDirectory() Then
+    ButtonBox2.Text = Dialog.path
+  Endif
+
+End

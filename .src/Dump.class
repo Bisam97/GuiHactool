@@ -1,0 +1,83 @@
+' Gambas class file
+
+Private $size As Long
+
+
+Public Sub Button1_Click()
+
+
+
+
+
+  Dim a As String[]
+
+  ButtonBox1.Enabled = False
+  ButtonBox2.Enabled = False
+  $size = 0
+
+  a = Split(ButtonBox1.Text, "/")
+  If a.Find("registered") = -1 Then
+    Message.Error(" The Path Is Not a Switch sd game path")
+    ButtonBox1.Background = Color.Red
+  Else
+    ButtonBox1.Background = Color.White
+    File.Save(ButtonBox2.Text & ".path", "/" & a[a.Find("registered")] &/ a[a.Find("registered") + 1] &/ a[a.Find("registered") + 2])
+    $size = Stat(ButtonBox1.Text).Size
+
+    ProgressBar1.Value = 0
+    Shell "cat " & ButtonBox1.Text & " > " & ButtonBox2.Text
+    Timer1.Start()
+  Endif
+
+End
+
+Public Sub Timer1_Timer()
+
+  Debug "Filegröße ist bei: " & Stat(ButtonBox2.Text).Size & "b"
+  ProgressBar1.Value = Stat(ButtonBox2.Text).Size / $size
+
+  If ProgressBar1.Value = 1 Then
+    Timer1.Stop()
+    ButtonBox1.Enabled = True
+    ButtonBox2.Enabled = True
+  Endif
+
+End
+
+Public Sub ButtonBox1_Click()
+
+  If Not Dialog.SelectDirectory() Then
+    ButtonBox1.Text = Dialog.path
+  Endif
+
+End
+
+Public Sub ButtonBox2_Click()
+
+  If Not Dialog.SaveFile() Then
+    ButtonBox2.Text = Dialog.path
+  Endif
+
+End
+
+Public Sub Button2_Click()
+
+  Dim a As Collection
+
+  If ButtonBox1.Text = "" Then
+    Message.Info("Please enter the Path of the\nswitch SD Card Root under 'Game Path'")
+  Else
+    MlookAtgames.setdir(ButtonBox1.Text)
+    a = MlookAtgames.look()
+    FChosse.Show()
+    FChosse.setData(a, Me)
+  Endif
+  FChosse.x = Dump.x
+
+End
+
+Public Sub setData(s As String)
+
+  ButtonBox1.Text = s
+
+End

@@ -1,0 +1,92 @@
+' Gambas class file
+
+
+Public Sub ButtonBox1_Click()
+
+  If Dialog.SelectDirectory() Then
+
+  Else
+    ButtonBox1.Text = Dialog.Path
+  Endif
+
+End
+
+Public Sub Button1_Click()
+
+  Dim s As String[]
+  Dim a As String
+  Dim sa As String[]
+  Dim Gamename As String[]
+  Dim GameID As String[]
+  Dim i As Integer
+  Dim filee As String
+
+  s = Split(File.Load("/usr/lib/hactoolgui/titlelist"), gb.NewLine)
+  Gamename = New String[]
+  GameID = New String[]
+
+  For Each a In s
+
+    sa = Split(a, ",")
+    Try Gamename.Add(sa[0])
+
+    Try GameID.Add(Left(String.Lower(sa[4]), -3))
+
+  Next
+
+  For Each a In Dir(ButtonBox1.Text)
+
+
+    Print a
+    i = GameID.Find(Left(a, -3))
+    If i = -1 Then
+
+    Else
+      Print "find " & Gamename[i]
+      If Right(a, 3) = "800" Then
+        If Not Exist(ButtonBox1.Text &/ "Update_" & Gamename[i]) Then
+          Print "Create " & ButtonBox1.Text &/ "Update_" & Gamename[i]
+          Mkdir ButtonBox1.Text &/ "Update_" & Gamename[i]
+        Endif
+        Wait 1
+        Print "Move All to " & ButtonBox1.Text &/ "Update_" & Gamename[i]
+        For Each filee In Dir(ButtonBox1.Text &/ a)
+
+          Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee
+
+        Next
+
+        Print "Delete " & ButtonBox1.Text &/ a
+        Rmdir ButtonBox1.Text &/ a
+
+      Else
+
+        If Not Exist(ButtonBox1.Text &/ Gamename[i]) Then
+          Print "Create " & ButtonBox1.Text &/ Gamename[i]
+          Mkdir ButtonBox1.Text &/ Gamename[i]
+        Endif
+        Wait 1
+
+        Print "Move All to " & ButtonBox1.Text &/ Gamename[i]
+        For Each filee In Dir(ButtonBox1.Text &/ a)
+
+          Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ Gamename[i] &/ filee
+
+        Next
+
+
+        Print "Delete " & ButtonBox1.Text &/ a
+        Rmdir ButtonBox1.Text &/ a
+
+
+      Endif
+    Endif
+
+
+
+  Next
+
+
+
+
+End

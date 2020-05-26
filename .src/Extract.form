@@ -1,0 +1,30 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,34)
+  { Timer1 #Timer
+    #MoveScaled(57,27)
+    Delay = 100
+  }
+  { ButtonBox1 ButtonBox
+    MoveScaled(3,5,57,4)
+  }
+  { ButtonBox2 ButtonBox
+    MoveScaled(3,17,57,4)
+  }
+  { Label1 Label
+    MoveScaled(3,1,24,4)
+    Text = ("Plaintext")
+  }
+  { Label2 Label
+    MoveScaled(3,13,24,4)
+    Text = ("Dir For Romfs and Exefs")
+  }
+  { Button1 Button
+    MoveScaled(24,23,16,4)
+    Text = ("Start Decrypt")
+  }
+  { ProgressBar1 ProgressBar
+    MoveScaled(3,28,57,4)
+  }
+}

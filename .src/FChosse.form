@@ -1,0 +1,9 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,32)
+  { GridView1 GridView
+    MoveScaled(0,0,64,32)
+    Header = GridView.Horizontal
+  }
+}

@@ -1,0 +1,81 @@
+' Gambas class file
+
+Private $size As Long
+Private $watch As Watch
+
+
+Public Sub Button1_Click()
+
+  ButtonBox1.Enabled = False
+  ButtonBox2.Enabled = False
+  $size = 0
+  $size = Stat(ButtonBox1.Text).Size
+  Shell "/usr/lib/pokkentools/hactool/hactool -tnax0 --plaintext=" & ButtonBox2.Text & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox1.Text & ".path") & " " & ButtonBox1.Text For Read As "hactool"
+  Timer1.Start
+  $watch = New Watch(File.Dir(ButtonBox2.Text)) As "Watch"
+
+End
+
+Public Sub Watch_Close()
+
+  If Watch.Name == File.Name(ButtonBox2.Text)
+    Print "Alles Fertig"
+    Timer1.Stop()
+    ButtonBox1.Enabled = True
+    ButtonBox2.Enabled = True
+  Endif
+
+End
+
+Public Sub ButtonBox1_Click()
+
+  If Not Dialog.OpenFile() Then
+    ButtonBox1.Text = Dialog.path
+  Endif
+
+End
+
+Public Sub ButtonBox2_Click()
+
+  If Not Dialog.SaveFile() Then
+    ButtonBox2.Text = Dialog.path
+  Endif
+
+End
+
+
+Public Sub Timer1_Timer()
+
+  Dim l As Long
+
+  If Exist(ButtonBox2.Text) Then l = Stat(ButtonBox2.Text).Size
+
+
+  Debug "Filegröße ist bei: " & l & "b"
+  ProgressBar1.Value = l / $size
+
+
+End
+
+Public Sub hactool_Read()
+
+  Dim sLine As String
+  Dim a As String[]
+  Dim s As String
+
+  sLine = Read #Last, -256
+
+
+  Print sLine
+  a = Split(sLine, gb.NewLine & "D", "", True)
+
+  For Each s In a
+    If s = "one!" Then
+      Timer1.Stop()
+      ButtonBox1.Enabled = True
+      ButtonBox2.Enabled = True
+    Endif
+  Next
+
+End
+

@@ -1,0 +1,47 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,54)
+  { ButtonBox1 ButtonBox
+    MoveScaled(3,5,53,4)
+  }
+  { Label1 Label
+    MoveScaled(3,1,24,4)
+    Text = ("Root of your Switch SD card")
+  }
+  { ButtonBox2 ButtonBox
+    MoveScaled(3,15,53,4)
+  }
+  { Label2 Label
+    MoveScaled(3,11,24,4)
+    Text = ("Root of the Backup Dir Tree")
+  }
+  { ProgressBar1 ProgressBar
+    MoveScaled(3,30,53,4)
+  }
+  { ProgressBar2 ProgressBar
+    MoveScaled(3,39,53,4)
+  }
+  { ProgressBar3 ProgressBar
+    MoveScaled(3,48,53,4)
+  }
+  { Button1 Button
+    MoveScaled(21,21,16,4)
+    Text = ("Backup!")
+  }
+  { Label3 Label
+    MoveScaled(3,26,24,4)
+    Text = ("Dump to Backup")
+  }
+  { Label4 Label
+    MoveScaled(3,35,24,4)
+    Text = ("Decrypt of Dump")
+  }
+  { Label5 Label
+    MoveScaled(3,44,24,4)
+    Text = ("Totally Progress")
+  }
+  { Timer1 #Timer
+    #MoveScaled(56,48)
+  }
+}

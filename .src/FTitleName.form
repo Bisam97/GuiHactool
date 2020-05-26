@@ -1,0 +1,17 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,19)
+  { Button1 Button
+    MoveScaled(24,12,16,4)
+    Text = ("rename")
+  }
+  { !ButtonBox1 ButtonBox
+    MoveScaled(5,6,53,4)
+    #Public = True
+  }
+  { Label1 Label
+    MoveScaled(5,1,24,4)
+    Text = ("Path of the Full Backup")
+  }
+}

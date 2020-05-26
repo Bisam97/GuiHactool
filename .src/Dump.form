@@ -1,0 +1,34 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,34)
+  { ButtonBox1 ButtonBox
+    MoveScaled(3,5,57,4)
+  }
+  { Label1 Label
+    MoveScaled(3,1,24,4)
+    Text = ("Game Path")
+  }
+  { Label2 Label
+    MoveScaled(3,12,24,4)
+    Text = ("Path of the Dump")
+  }
+  { ButtonBox2 ButtonBox
+    MoveScaled(3,17,57,4)
+  }
+  { Button1 Button
+    MoveScaled(24,23,16,4)
+    Text = ("Start Dump")
+  }
+  { ProgressBar1 ProgressBar
+    MoveScaled(3,28,57,4)
+  }
+  { Button2 Button
+    MoveScaled(33,1,27,3)
+    Text = ("Locate the Game")
+  }
+  { Timer1 #Timer
+    #MoveScaled(54,24)
+    Delay = 100
+  }
+}

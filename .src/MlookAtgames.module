@@ -1,0 +1,36 @@
+' Gambas module file
+
+Public $dir As String
+
+Public Sub setdir(dir As String)
+
+
+  $dir = dir &/ "Nintendo/Contents/registered"
+
+
+End
+
+Public Sub look() As Collection
+
+  Dim s As String
+  Dim sPFile As String
+  Dim Path As String[]
+  Dim Size As Long[]
+  Dim r As Collection
+
+  r = New Collection
+  Path = New String[]
+  Size = New Long[]
+
+  For Each s In Dir($dir, "", gb.Directory)
+    For Each sPFile In Dir($dir &/ s)
+      Path.Add($dir &/ s &/ sPFile)
+      Size.Add(Stat($dir &/ s &/ sPFile).Size)
+    Next
+  Next
+
+  r.Add(Path, "Path")
+  r.Add(Size, "Size")
+  Return r
+
+End
