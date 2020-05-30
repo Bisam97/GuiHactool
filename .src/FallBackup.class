@@ -15,6 +15,8 @@ Private $currendsize As Long
 Public Sub Button1_Click()
 
   Button1.Enabled = False
+  ButtonBox1.Enabled = False
+  ButtonBox2.Enabled = False
   Try Mkdir ButtonBox2.Text &/ ".work"
   Try Kill ButtonBox2.Text &/ ".work" &/ "game.bin"
 
