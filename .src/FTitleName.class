@@ -52,12 +52,13 @@ Public Sub Button1_Click()
         Print "Move All to " & ButtonBox1.Text &/ "Update_" & Gamename[i]
         For Each filee In Dir(ButtonBox1.Text &/ a)
 
-          Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee
+          ' Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee
+          Shell "cp -al " & ButtonBox1.Text &/ a &/ filee & " " & ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee Wait
 
         Next
 
-        Print "Delete " & ButtonBox1.Text &/ a
-        Rmdir ButtonBox1.Text &/ a
+        ' Print "Delete " & ButtonBox1.Text &/ a
+        ' Rmdir ButtonBox1.Text &/ a
 
       Else
 
@@ -70,13 +71,14 @@ Public Sub Button1_Click()
         Print "Move All to " & ButtonBox1.Text &/ Gamename[i]
         For Each filee In Dir(ButtonBox1.Text &/ a)
 
-          Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ Gamename[i] &/ filee
+          ' Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ Gamename[i] &/ filee
+          Shell "cp -al " & ButtonBox1.Text &/ a &/ filee & " " & ButtonBox1.Text &/ Gamename[i] &/ filee Wait
 
         Next
 
 
-        Print "Delete " & ButtonBox1.Text &/ a
-        Rmdir ButtonBox1.Text &/ a
+        ' Print "Delete " & ButtonBox1.Text &/ a
+        ' Rmdir ButtonBox1.Text &/ a
 
 
       Endif
