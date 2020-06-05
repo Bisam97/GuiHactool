@@ -1,0 +1,39 @@
+' Gambas module file
+
+Public Sub MakeScript(workdir As String, Optional win As Boolean)
+
+  If Exist(workdir) Then
+    If Exist(workdir &/ "Program.nca") Then
+      If Exist(workdir &/ "Program1.nca") Then
+
+        If Stat(workdir &/ "Program.nca").Size > Stat(workdir &/ "Program1.nca").Size Then
+          File.Save(workdir &/ "withUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program.nca Program1.nca")
+        Else
+          File.Save(workdir &/ "withUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program1.nca Program.nca")
+        Endif
+
+
+
+      Else
+
+
+
+
+
+      Endif
+
+      File.Save(workdir &/ "withoutUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs Program.nca")
+      Message.Info("Finish")
+
+
+
+    Else
+
+      Message.Error("Program.nca not found\nPlease rename your Game NCA Program.nca")
+
+    Endif
+  Else
+    Message.Error("Directory Do Not Exist")
+  Endif
+
+End

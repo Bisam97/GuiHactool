@@ -87,3 +87,9 @@ Public Sub Form_Close()
   Quit
 
 End
+
+Public Sub Button7_Click()
+
+  FScript.Show()
+
+End

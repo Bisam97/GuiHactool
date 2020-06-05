@@ -13,7 +13,7 @@
       Text = ("Decrypt a\nDump")
     }
     { Button3 Button
-      MoveScaled(2,16,34,6)
+      MoveScaled(2,16,16,6)
       Text = ("Extract a\nDecrypt Dump")
     }
     { Button4 Button
@@ -27,6 +27,10 @@
     { Button6 Button
       MoveScaled(56,2,6,20)
       Text = ("Title\nID\n\nTo\n\nGame\nName")
+    }
+    { Button7 Button
+      MoveScaled(20,16,16,6)
+      Text = ("Make Extract\nScript")
     }
   }
 }
