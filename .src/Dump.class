@@ -10,6 +10,7 @@ Public Sub Button1_Click()
 
 
   Dim a As String[]
+  Dim d As String
 
   ButtonBox1.Enabled = False
   ButtonBox2.Enabled = False
@@ -25,7 +26,24 @@ Public Sub Button1_Click()
     $size = Stat(ButtonBox1.Text).Size
 
     ProgressBar1.Value = 0
-    Shell "cat " & ButtonBox1.Text & " > " & ButtonBox2.Text
+
+    If Stat(ButtonBox1.Text).Type = gb.Directory Then
+
+      $size = 0
+      For Each d In Dir(ButtonBox1.Text)
+
+        $size += Stat(ButtonBox1.Text &/ d).Size
+
+
+
+      Next
+      Shell "cat " & ButtonBox1.Text &/ "* > " & ButtonBox2.Text
+
+    Else
+      Shell "cat " & ButtonBox1.Text & " > " & ButtonBox2.Text
+
+    Endif
+
     Timer1.Start()
   Endif
 

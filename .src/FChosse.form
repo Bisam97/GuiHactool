@@ -1,9 +1,10 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,64,32)
+  MoveScaled(0,0,101,32)
+  Arrangement = Arrange.Fill
   { GridView1 GridView
-    MoveScaled(0,0,64,32)
+    MoveScaled(0,0,100,32)
     Header = GridView.Horizontal
   }
 }

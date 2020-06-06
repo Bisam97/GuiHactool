@@ -17,6 +17,8 @@ Public Sub look() As Collection
   Dim Path As String[]
   Dim Size As Long[]
   Dim r As Collection
+  Dim d As String
+  Dim l As Long
 
   r = New Collection
   Path = New String[]
@@ -24,8 +26,16 @@ Public Sub look() As Collection
 
   For Each s In Dir($dir, "", gb.Directory)
     For Each sPFile In Dir($dir &/ s)
+      If Stat($dir &/ s &/ sPFile).Type = gb.Directory Then
+        l = 0
+        For Each d In Dir($dir &/ s &/ sPFile)
+          l += Stat($dir &/ s &/ sPFile &/ d).Size
+        Next
+        Size.Add(l)
+      Else
+        Size.Add(Stat($dir &/ s &/ sPFile).Size)
+      Endif
       Path.Add($dir &/ s &/ sPFile)
-      Size.Add(Stat($dir &/ s &/ sPFile).Size)
     Next
   Next
 

@@ -7,5 +7,6 @@
   }
   { Button1 Button
     MoveScaled(19,9,16,4)
+    Text = ("Make Script")
   }
 }
