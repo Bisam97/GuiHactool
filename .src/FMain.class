@@ -10,7 +10,7 @@ Public Sub Form_Open()
     Select Message.Question("you don't have installed hactool\ndo you want install (root needet)", "yes", "no", "close")
       Case 1
         Print "1"
-        Shell "sh /usr/lib/hactoolgui/installhactool" Wait
+        Shell "sh /usr/lib/hactoolgui/installhactool.sh" Wait
       Case 2
         Print "2"
 
