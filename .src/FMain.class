@@ -1,15 +1,29 @@
 ' Gambas class file
 
-
 Public $Workdir As String
 Public $ProdKeylist As Collection
 
 Public Sub Form_Open()
 
+  If Not Exist("/bin/hactool") Then
+
+    Select Message.Question("you don't have installed hactool\ndo you want install (root needet)", "yes", "no", "close")
+      Case 1
+        Print "1"
+        Shell "sh /usr/lib/hactoolgui/installhactool" Wait
+      Case 2
+        Print "2"
+
+      Case 3
+        Print "3"
+        Quit
+      Case 0
+    End Select
+
+  Endif
 
   If Exist(User.Home & "/.switch/prod.keys") Then
     LoadKeys()
-
 
   Else
     Message.Info("Please Connect to the SD card of your Switch\n and Select the root dir of the SD card")
@@ -45,8 +59,6 @@ Public Sub LoadKeys()
     $ProdKeylist.Add(a[1], a[0])
   Next
   Message.Info("Keys was loaded")
-
-
 
 End
 

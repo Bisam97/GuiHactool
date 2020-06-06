@@ -1,6 +1,5 @@
 ' Gambas class file
 
-
 Public Sub ButtonBox1_Click()
 
   If Dialog.SelectDirectory() Then
@@ -35,7 +34,6 @@ Public Sub Button1_Click()
   Next
 
   For Each a In Dir(ButtonBox1.Text)
-
 
     Print a
     i = GameID.Find(Left(a, -3))
@@ -76,19 +74,12 @@ Public Sub Button1_Click()
 
         Next
 
-
         ' Print "Delete " & ButtonBox1.Text &/ a
         ' Rmdir ButtonBox1.Text &/ a
-
 
       Endif
     Endif
 
-
-
   Next
-
-
-
 
 End

@@ -3,7 +3,6 @@
 Private $size As Long
 Private $watch As Watch
 
-
 Public Sub Button1_Click()
 
   ButtonBox1.Enabled = False
@@ -43,17 +42,14 @@ Public Sub ButtonBox2_Click()
 
 End
 
-
 Public Sub Timer1_Timer()
 
   Dim l As Long
 
   If Exist(ButtonBox2.Text) Then l = Stat(ButtonBox2.Text).Size
 
-
   Debug "Filegröße ist bei: " & l & "b"
   ProgressBar1.Value = l / $size
-
 
 End
 
@@ -64,7 +60,6 @@ Public Sub hactool_Read()
   Dim s As String
 
   sLine = Read #Last, -256
-
 
   Print sLine
   a = Split(sLine, gb.NewLine & "D", "", True)
@@ -78,4 +73,3 @@ Public Sub hactool_Read()
   Next
 
 End
-

@@ -10,8 +10,6 @@ Private $i As Integer
 Private $watch As Watch
 Private $currendsize As Long
 
-
-
 Public Sub Button1_Click()
 
   Button1.Enabled = False
@@ -70,15 +68,8 @@ Public Sub Copy()
       $watch.Resume
       Shell "cat " & $Pathlist[$i] & " > " & ButtonBox2.Text &/ ".work/game.bin"
 
-
-
-
-
       Print "Copy now.... " & $Pathlist[$i]
       $i += 1
-
-
-
 
     Endif
   Endif
@@ -142,10 +133,6 @@ End
 
 Public Sub Timer1_Timer()
 
-
-
-
-
   If $onCopy Then
 
     Try ProgressBar1.Value = Stat(ButtonBox2.Text &/ ".work/game.bin").Size / $currendsize
@@ -163,11 +150,7 @@ Public Sub Timer1_Timer()
 
     Try ProgressBar2.Value = Stat(ButtonBox2.Text &/ ".work/game.nca").Size / $currendsize
 
-
-
   Endif
-
-
 
 End
 
