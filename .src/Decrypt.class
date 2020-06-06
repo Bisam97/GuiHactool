@@ -9,7 +9,7 @@ Public Sub Button1_Click()
   ButtonBox2.Enabled = False
   $size = 0
   $size = Stat(ButtonBox1.Text).Size
-  Shell "/usr/lib/pokkentools/hactool/hactool -tnax0 --plaintext=" & ButtonBox2.Text & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox1.Text & ".path") & " " & ButtonBox1.Text For Read As "hactool"
+  Shell "hactool -tnax0 --plaintext=" & ButtonBox2.Text & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox1.Text & ".path") & " " & ButtonBox1.Text For Read As "hactool"
   Timer1.Start
   $watch = New Watch(File.Dir(ButtonBox2.Text)) As "Watch"
 

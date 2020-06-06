@@ -81,7 +81,7 @@ Public Sub Decrypt()
   If $isFinishCopy Then
 
     $isFinishCopy = False
-    Shell "/usr/lib/pokkentools/hactool/hactool -tnax0 --plaintext=" & ButtonBox2.Text &/ ".work/game.nca" & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox2.Text &/ ".work/game.bin.path") & " " & ButtonBox2.Text &/ ".work/game.bin"
+    Shell "hactool -tnax0 --plaintext=" & ButtonBox2.Text &/ ".work/game.nca" & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox2.Text &/ ".work/game.bin.path") & " " & ButtonBox2.Text &/ ".work/game.bin"
     $onDecrypt = True
   Endif
 
@@ -96,7 +96,7 @@ Public Sub Decryptfin()
 
   If $isFinishDecrypt Then
     $isFinishDecrypt = False
-    Shell "/usr/lib/pokkentools/hactool/hactool " & ButtonBox2.Text &/ ".work/game.nca >/tmp/hactool.txt" Wait
+    Shell "hactool " & ButtonBox2.Text &/ ".work/game.nca >/tmp/hactool.txt" Wait
 
     a = Split(File.Load("/tmp/hactool.txt"), ": " & gb.NewLine, "", True)
 

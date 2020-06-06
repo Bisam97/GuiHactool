@@ -12,20 +12,12 @@ Public Sub MakeScript(workdir As String, Optional win As Boolean)
           File.Save(workdir &/ "withUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program1.nca Program.nca")
         Endif
 
-
-
       Else
-
-
-
-
 
       Endif
 
       File.Save(workdir &/ "withoutUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs Program.nca")
       Message.Info("Finish")
-
-
 
     Else
 
