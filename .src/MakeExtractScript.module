@@ -8,8 +8,10 @@ Public Sub MakeScript(workdir As String, Optional win As Boolean)
 
         If Stat(workdir &/ "Program.nca").Size > Stat(workdir &/ "Program1.nca").Size Then
           File.Save(workdir &/ "withUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program.nca Program1.nca")
+          If win Then File.Save(workdir &/ "withUpdate.bat", "hactool.exe -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program.nca Program1.nca")
         Else
           File.Save(workdir &/ "withUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program1.nca Program.nca")
+          If win Then File.Save(workdir &/ "withUpdate.bat", "hactool.exe -x --romfsdir=./romfs --exefsdir=./exefs --basenca=./Program1.nca Program.nca")
         Endif
 
       Else
@@ -17,6 +19,7 @@ Public Sub MakeScript(workdir As String, Optional win As Boolean)
       Endif
 
       File.Save(workdir &/ "withoutUpdate.sh", "hactool -x --romfsdir=./romfs --exefsdir=./exefs Program.nca")
+      If win Then File.Save(workdir &/ "withoutUpdate.bat", "hactool.exe -x --romfsdir=./romfs --exefsdir=./exefs Program.nca")
       Message.Info("Finish")
 
     Else

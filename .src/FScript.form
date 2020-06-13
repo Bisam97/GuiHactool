@@ -6,7 +6,11 @@
     MoveScaled(6,4,41,4)
   }
   { Button1 Button
-    MoveScaled(19,9,16,4)
+    MoveScaled(31,9,16,4)
     Text = ("Make Script")
+  }
+  { CheckBox1 CheckBox
+    MoveScaled(6,9,24,4)
+    Text = ("Make .bat (CMD Script)")
   }
 }

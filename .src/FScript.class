@@ -1,9 +1,8 @@
 ' Gambas class file
 
-
 Public Sub Button1_Click()
 
-  MakeExtractScript.MakeScript(ButtonBox1.Text)
+  MakeExtractScript.MakeScript(ButtonBox1.Text, CheckBox1.Value)
 
 End
 
