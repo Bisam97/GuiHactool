@@ -10,6 +10,8 @@ Private $i As Integer
 Private $watch As Watch
 Private $currendsize As Long
 
+
+
 Public Sub Button1_Click()
 
   Button1.Enabled = False
@@ -46,6 +48,7 @@ End
 Public Sub Copy()
 
   Dim a As String[]
+  Dim d As String
 
   If $i = $Pathlist.Length Then
 
@@ -66,10 +69,36 @@ Public Sub Copy()
       File.Save(ButtonBox2.Text &/ ".work/game.bin.path", "/" & a[a.Find("registered")] &/ a[a.Find("registered") + 1] &/ a[a.Find("registered") + 2])
       $currendsize = Stat($Pathlist[$i]).Size
       $watch.Resume
-      Shell "cat " & $Pathlist[$i] & " > " & ButtonBox2.Text &/ ".work/game.bin"
+
+      If Stat($Pathlist[$i]).Type = gb.Directory Then
+
+        $currendsize = 0
+        For Each d In Dir($Pathlist[$i])
+
+          $currendsize += Stat($Pathlist[$i] &/ d).Size
+
+
+
+        Next
+        Shell "cat " & $Pathlist[$i] &/ "* > " & ButtonBox2.Text &/ ".work/game.bin"
+
+
+
+
+
+
+      Else
+        Shell "cat " & $Pathlist[$i] & " > " & ButtonBox2.Text &/ ".work/game.bin"
+      Endif
+
+
+
 
       Print "Copy now.... " & $Pathlist[$i]
       $i += 1
+
+
+
 
     Endif
   Endif
@@ -81,7 +110,7 @@ Public Sub Decrypt()
   If $isFinishCopy Then
 
     $isFinishCopy = False
-    Shell "hactool -tnax0 --plaintext=" & ButtonBox2.Text &/ ".work/game.nca" & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox2.Text &/ ".work/game.bin.path") & " " & ButtonBox2.Text &/ ".work/game.bin"
+    Shell "/usr/lib/pokkentools/hactool/hactool -tnax0 --plaintext=" & ButtonBox2.Text &/ ".work/game.nca" & " --sdseed=" & FMain.$ProdKeylist["sd_seed"] & " --sdpath=" & File.Load(ButtonBox2.Text &/ ".work/game.bin.path") & " " & ButtonBox2.Text &/ ".work/game.bin"
     $onDecrypt = True
   Endif
 
@@ -96,7 +125,7 @@ Public Sub Decryptfin()
 
   If $isFinishDecrypt Then
     $isFinishDecrypt = False
-    Shell "hactool " & ButtonBox2.Text &/ ".work/game.nca >/tmp/hactool.txt" Wait
+    Shell "/usr/lib/pokkentools/hactool/hactool " & ButtonBox2.Text &/ ".work/game.nca >/tmp/hactool.txt" Wait
 
     a = Split(File.Load("/tmp/hactool.txt"), ": " & gb.NewLine, "", True)
 
@@ -133,6 +162,10 @@ End
 
 Public Sub Timer1_Timer()
 
+
+
+
+
   If $onCopy Then
 
     Try ProgressBar1.Value = Stat(ButtonBox2.Text &/ ".work/game.bin").Size / $currendsize
@@ -150,7 +183,11 @@ Public Sub Timer1_Timer()
 
     Try ProgressBar2.Value = Stat(ButtonBox2.Text &/ ".work/game.nca").Size / $currendsize
 
+
+
   Endif
+
+
 
 End
 
