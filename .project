@@ -1,20 +1,22 @@
 # Gambas Project File 3.0
 Title=Hactool GUI
 Startup=FMain
-Version=0.9.0
+Version=0.9.1
 Component=gb.image
 Component=gb.gui
 Component=gb.form
 Component=gb.inotify
+Environment="GB_GUI=gb.qt5"
 TabSize=2
 Language=en_US
 SourcePath=/media/bisam97/Bibiliotek
 Maintainer=bisam97
 Address=bisam97@Tobias-PC
 License=General Public License
-PackageName=guihactool-0.0.1
+PackageName=hactoolgui-0.9.0
 Packager=1
 Systems=ubuntu
 Menus=ubuntu:"Games/Tools"
 Groups=ubuntu:"misc"
-ExtraFiles=ubuntu:"installhactool.sh\t/usr/lib/hactoolgui\ntitlelist\t/usr/lib/hactoolgui"
+ExtraDependencies=ubuntu:"hactool\t1.4.0-1\t"
+ExtraFiles=ubuntu:"titlelist\t/usr/lib/hactoolgui"

@@ -5,7 +5,7 @@ Public $ProdKeylist As Collection
 
 Public Sub Form_Open()
 
-  If Not Exist("/bin/hactool") Then
+  If Not Exist("/usr/bin/hactool") Then
 
     Select Message.Question("you don't have installed hactool\ndo you want install (root needet)", "yes", "no", "close")
       Case 1
