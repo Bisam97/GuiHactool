@@ -4,23 +4,23 @@ Public $Workdir As String
 Public $ProdKeylist As Collection
 
 Public Sub Form_Open()
-
-  If Not Exist("/usr/bin/hactool") Then
-
-    Select Message.Question("you don't have installed hactool\ndo you want install (root needet)", "yes", "no", "close")
-      Case 1
-        Print "1"
-        Shell "sh /usr/lib/hactoolgui/installhactool.sh" Wait
-      Case 2
-        Print "2"
-
-      Case 3
-        Print "3"
-        Quit
-      Case 0
-    End Select
-
-  Endif
+  '' hactool is in the depentings
+  ' If Not Exist("/usr/bin/hactool") Then
+  '
+  '   Select Message.Question("you don't have installed hactool\ndo you want install (root needet)", "yes", "no", "close")
+  '     Case 1
+  '       Print "1"
+  '       Shell "sh /usr/lib/hactoolgui/installhactool.sh" Wait
+  '     Case 2
+  '       Print "2"
+  '
+  '     Case 3
+  '       Print "3"
+  '       Quit
+  '     Case 0
+  '   End Select
+  '
+  ' Endif
 
   If Exist(User.Home & "/.switch/prod.keys") Then
     LoadKeys()
@@ -51,6 +51,7 @@ Public Sub LoadKeys()
   Dim s As String
 
   $ProdKeylist = New Collection
+  Shell "titlekeyfix" Wait
   sFile = File.Load(User.Home & "/.switch/prod.keys")
   For Each s In Split(sFile, gb.NewLine, "", True)
 
