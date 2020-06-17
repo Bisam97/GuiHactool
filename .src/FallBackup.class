@@ -145,9 +145,12 @@ Public Sub Decryptfin()
         Wend
 
         Move ButtonBox2.Text &/ ".work/game.nca" Kill ButtonBox2.Text &/ titleID &/ type & i & ".nca"
+        Move ButtonBox2.Text &/ ".work/game.bin.path" Kill ButtonBox2.Text &/ titleID &/ type & i & ".nca.path"
+
 
       Else
         Move ButtonBox2.Text &/ ".work/game.nca" Kill ButtonBox2.Text &/ titleID &/ type & ".nca"
+        Move ButtonBox2.Text &/ ".work/game.bin.path" Kill ButtonBox2.Text &/ titleID &/ type & ".nca.path"
       Endif
       While Not Stat(ButtonBox2.Text &/ titleID &/ type & ".nca").Size = $currendsize
         Print "wait hold on"
