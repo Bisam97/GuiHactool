@@ -8,4 +8,4 @@ cp hactool /bin/hactool
 cd ..
 rm -r hactool
 clear
-echo "Install hactool to /bin"
+echo "Install hactool to /usr/bin"

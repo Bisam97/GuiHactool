@@ -81,5 +81,6 @@ Public Sub Button1_Click()
     Endif
 
   Next
+  MaddTree.NewTree(ButtonBox1.Text)
 
 End
