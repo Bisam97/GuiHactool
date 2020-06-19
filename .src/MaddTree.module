@@ -1,0 +1,82 @@
+' Gambas module file
+
+Public Sub NewTree(DirOfDecrypedNCA As String)
+
+  Dim s As String
+  Dim a As String
+  Dim xml As New XmlDocument
+  Dim titlelist As String[]
+  Dim Gamename As String[]
+  Dim GameID As String[]
+  Dim title As String
+  Dim sa As String[]
+  Dim name As String
+  Dim element As XmlElement
+
+
+  ''------------------Load Titlelist------------------------------------
+  titlelist = Split(File.Load("/usr/lib/hactoolgui/titlelist"), gb.NewLine)
+  Gamename = New String[]
+  GameID = New String[]
+
+  For Each title In titlelist
+
+    sa = Split(title, ",")
+    Try Gamename.Add(sa[0])
+
+    Try GameID.Add(String.Lower(sa[4]))
+
+  Next
+  ''--------------------------------------------------------------------
+
+  ''------------------Search for *.path in the Dir----------------------
+
+  xml.Root = xml.CreateElement("switchTitle")
+  For Each s In Dir(DirOfDecrypedNCA, "0*")
+
+
+
+    Print s
+    If GameID.Find(s) == -1 Then
+      name = s
+    Else
+      name = Gamename[GameID.Find(s)]
+    Endif
+
+    xml.Root.NewElement("game")
+    If element Then
+      element = element.NextElement
+    Else
+      element = xml.Root.FirstChild
+    Endif
+    element.NewAttribute("name", name)
+
+
+    For Each a In Dir(DirOfDecrypedNCA &/ s, "*.path")
+
+      Print a
+      element.NewElement(File.BaseName(a))
+      element.GetChildrenByTagName(File.BaseName(a))[0].NewAttribute("path", File.Load(DirOfDecrypedNCA &/ s &/ a))
+
+
+
+    Next
+
+
+  Next
+
+  If Exist(User.home &/ ".switch/SDTitles.xml") Then
+    Print "existiert schon"
+  Else
+    xml.Save(User.home &/ ".switch/SDTitles.xml", True)
+  Endif
+  Print
+
+End
+
+Public Sub main()
+
+  NewTree("/media/bisam97/Switch_Decryped_Backup/fullswitch")
+  Quit
+
+End

@@ -1,11 +1,13 @@
 ' Gambas module file
 
 Public $dir As String
+Private $dirForXml As String
 
 Public Sub setdir(dir As String)
 
 
   $dir = dir &/ "Nintendo/Contents/registered"
+  $dirForXml = dir &/ "Nintendo/Contents"
 
 
 End
@@ -41,6 +43,40 @@ Public Sub look() As Collection
 
   r.Add(Path, "Path")
   r.Add(Size, "Size")
+  r.Add(LookToInstalledTitleSDXML(Path.Copy()), "Name")
   Return r
+
+End
+
+Public Sub LookToInstalledTitleSDXML(Path As String[]) As String[]
+
+  Dim xml As XmlExplorer
+  Dim element As XmlElement
+  Dim a As XmlElement
+
+  xml = New XmlExplorer( New XmlDocument(User.home &/ ".switch/SDTitles.xml"))
+  For Each element In xml.Document.GetElementsByTagName("switchTitle")[0].ChildElements
+    Print
+    For Each a In element.ChildElements
+
+      If Path.Find($dirForXml &/ a.Attributes["path"]) == -1 Then Break
+      Path[Path.Find($dirForXml &/ a.Attributes["path"])] = a.Name & " | " & element.Attributes["name"]
+
+
+
+    Next
+
+
+
+  Next
+  Return Path
+
+End
+
+Public Sub main()
+
+
+  setdir("/var/run/user/1000/gvfs/ftp:host=192.168.1.11,port=5000")
+  look()
 
 End

@@ -5,8 +5,9 @@ Private $form As Dump
 Public Sub Form_Open()
 
 
-  GridView1.AddColumn("Path", -1)
+  GridView1.AddColumn("Name", -1)
   GridView1.AddColumn("Size")
+  GridView1.AddColumn("Path")
 
 
 End
@@ -18,11 +19,12 @@ Public Sub setData(r As Collection, form As Dump)
   Dim l As Long
   Dim backup As Long[]
   Dim row As Integer
+  Dim aName As Variant
 
   $form = form
   aSize = r["Size"]
   backup = aSize.Copy()
-
+  aName = r["Name"]
   aPath = r["Path"]
 
 
@@ -31,10 +33,12 @@ Public Sub setData(r As Collection, form As Dump)
     If backup.Find(l) > -1 Then
       row = backup.Find(l)
       GridView1.Rows.Insert(0)
-      GridView1[0, 0].RichText = aPath[row]
+      GridView1[0, 0].RichText = aName[row]
+      GridView1[0, 2].RichText = aPath[row]
       GridView1[0, 1].RichText = l
       backup.Delete(row)
       aPath.Delete(row)
+      aName.Delete(row)
     Else
       Print l & " was not found"
     Endif
@@ -48,7 +52,7 @@ Public Sub GridView1_Click()
 
   row = GridView1.Row
   Debug row
-  $form.setData(GridView1[row, 0].RichText)
+  $form.setData(GridView1[row, 2].RichText)
   'Me.Close
 
 End
