@@ -74,9 +74,3 @@ Public Sub NewTree(DirOfDecrypedNCA As String)
 
 End
 
-Public Sub main()
-
-  NewTree("/media/bisam97/Switch_Decryped_Backup/fullswitch")
-  Quit
-
-End

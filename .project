@@ -1,7 +1,7 @@
 # Gambas Project File 3.0
 Title=Hactool GUI
 Startup=FMain
-Version=0.11.1
+Version=0.11.2
 Component=gb.image
 Component=gb.gui
 Component=gb.form
