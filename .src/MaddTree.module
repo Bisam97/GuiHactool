@@ -66,7 +66,10 @@ Public Sub NewTree(DirOfDecrypedNCA As String)
   Next
 
   If Exist(User.home &/ ".switch/SDTitles.xml") Then
-    Print "existiert schon"
+
+    Move User.home &/ ".switch/SDTitles.xml" Kill User.home &/ ".switch/SDTitles.xml.old"
+    xml.Save(User.home &/ ".switch/SDTitles.xml")
+
   Else
     xml.Save(User.home &/ ".switch/SDTitles.xml", True)
   Endif

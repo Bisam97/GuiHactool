@@ -24,6 +24,10 @@ Public Sub Button1_Click()
   Gamename = New String[]
   GameID = New String[]
 
+
+
+
+
   For Each a In s
 
     sa = Split(a, ",")
@@ -44,13 +48,14 @@ Public Sub Button1_Click()
       If Right(a, 3) = "800" Then
         If Not Exist(ButtonBox1.Text &/ "Update_" & Gamename[i]) Then
           Print "Create " & ButtonBox1.Text &/ "Update_" & Gamename[i]
-          Mkdir ButtonBox1.Text &/ "Update_" & Gamename[i]
+          Try Mkdir ButtonBox1.Text &/ "Update_" & Gamename[i]
         Endif
         Wait 1
         Print "Move All to " & ButtonBox1.Text &/ "Update_" & Gamename[i]
         For Each filee In Dir(ButtonBox1.Text &/ a)
 
           ' Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee
+          Try Kill ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee
           Shell "cp -al " & ButtonBox1.Text &/ a &/ filee & " " & ButtonBox1.Text &/ "Update_" & Gamename[i] &/ filee Wait
 
         Next
@@ -62,7 +67,7 @@ Public Sub Button1_Click()
 
         If Not Exist(ButtonBox1.Text &/ Gamename[i]) Then
           Print "Create " & ButtonBox1.Text &/ Gamename[i]
-          Mkdir ButtonBox1.Text &/ Gamename[i]
+          Try Mkdir ButtonBox1.Text &/ Gamename[i]
         Endif
         Wait 1
 
@@ -70,6 +75,7 @@ Public Sub Button1_Click()
         For Each filee In Dir(ButtonBox1.Text &/ a)
 
           ' Move ButtonBox1.Text &/ a &/ filee To ButtonBox1.Text &/ Gamename[i] &/ filee
+          Try Kill ButtonBox1.Text &/ Gamename[i] &/ filee
           Shell "cp -al " & ButtonBox1.Text &/ a &/ filee & " " & ButtonBox1.Text &/ Gamename[i] &/ filee Wait
 
         Next
@@ -82,5 +88,7 @@ Public Sub Button1_Click()
 
   Next
   MaddTree.NewTree(ButtonBox1.Text)
+  Wait 1
+  Me.Close()
 
 End
