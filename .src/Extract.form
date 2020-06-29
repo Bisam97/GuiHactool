@@ -1,30 +1,37 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,64,34)
+  MoveScaled(0,0,64,48)
   { Timer1 #Timer
-    #MoveScaled(57,27)
+    #MoveScaled(57,37)
     Delay = 100
   }
   { ButtonBox1 ButtonBox
     MoveScaled(3,5,57,4)
   }
   { ButtonBox2 ButtonBox
-    MoveScaled(3,17,57,4)
+    MoveScaled(3,27,57,4)
   }
   { Label1 Label
     MoveScaled(3,1,24,4)
-    Text = ("Plaintext")
+    Text = ("Decrypt of the Dump (.nca)")
   }
   { Label2 Label
-    MoveScaled(3,13,24,4)
-    Text = ("Dir For Romfs and Exefs")
+    MoveScaled(3,23,31,4)
+    Text = ("Root Dir for the Romfs / ExeFs dir")
   }
   { Button1 Button
-    MoveScaled(24,23,16,4)
-    Text = ("Start Decrypt")
+    MoveScaled(24,33,16,4)
+    Text = ("Extract")
   }
-  { ProgressBar1 ProgressBar
-    MoveScaled(3,28,57,4)
+  { Label4 Label
+    MoveScaled(3,10,33,4)
+    Text = ("Path of the Update (Optional) (.nca)")
+  }
+  { ButtonBox3 ButtonBox
+    MoveScaled(3,15,57,4)
+  }
+  { TextLabel1 TextLabel
+    MoveScaled(3,38,57,7)
   }
 }
