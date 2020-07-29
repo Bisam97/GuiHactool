@@ -2,7 +2,7 @@
 Title=Hactool GUI
 Startup=FMain
 Icon=hactoolguiIcon.png
-Version=0.12.90
+Version=0.12.105
 Component=gb.image
 Component=gb.gui
 Component=gb.form

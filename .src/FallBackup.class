@@ -9,23 +9,98 @@ Private $isFinishDecrypt As Boolean
 Private $i As Integer
 Private $watch As Watch
 Private $currendsize As Long
+Private $Ramdiskuse As Boolean
+Private $sduse As Boolean
 
 
 
 Public Sub Button1_Click()
 
+  Dim s As String
+  Dim sa As String[]
+  Dim size As CSize
+  Dim c As Collection
+  Dim i As Integer
+  Dim checkS As Long
+  Dim dirf As String
+
   Button1.Enabled = False
   ButtonBox1.Enabled = False
   ButtonBox2.Enabled = False
-  Try Mkdir ButtonBox2.Text &/ ".work"
-  Try Kill ButtonBox2.Text &/ ".work" &/ "game.bin"
 
-  $watch = New Watch(ButtonBox2.Text &/ ".work") As "Watch"
+  If User.Name = "root" Then
+
+    Select Message.Question("You run the Programm as root.\nIs it ok to use 80% of your RAM for a fast Dump and Decryption?", "yes", "no", "?")
+      Case 1
+        Try Mkdir "/tmp/hactoolgui"
+        $Ramdiskuse = True
+        Shell "mount -t tmpfs -o size=80% hactool /tmp/hactoolgui"
+        Shell "df -BKB > /tmp/out.txt" Wait
+        s = File.Load("/tmp/out.txt")
+        sa = Split(s, " " & gb.NewLine, Null, True)
+        size = New CSize(CLong(String.Left$(sa[1 + sa.Find("hactool")], -2) * 1000))
+
+
+        Message.Info("Ramdisk created in '/tmp/hactoolgui' with the size '" & size.GigaByte & "GB'")
+
+    End Select
+  Endif
+
+
+
   MlookAtgames.setdir(ButtonBox1.Text)
   $Pathlist = MlookAtgames.look()["Path"]
-  $isNext = True
-  Me.Copy()
-  Timer1.Start
+
+  If $Ramdiskuse Then
+
+    c = New Collection
+    i = 1
+    $sduse = Stat($Pathlist[0]).Type = gb.Directory
+
+    For Each s In $Pathlist
+      Try Mkdir "/tmp/hactoolgui" &/ i
+      If Error.Code = 38 Then Error.Clear
+      If Error Then Message.Error(Error.Text & "\n" & Error.Where, "ok")
+      checkS = 0
+      If $sduse Then
+        For Each dirf In Dir(s)
+
+          checkS += Stat(s &/ dirf).Size
+
+        Next
+
+      Else
+        checkS = Stat(s).Size
+      Endif
+      If Stat(s).Size < size.Byte Then
+        c.Add(i, s)
+        i += 1
+        Print "Erfolgreich hinzugefügt mit der größe " & checkS
+      Else
+        Print "File " & s & " to big with " & checkS
+      Endif
+    Next
+
+
+
+
+
+
+
+  Endif
+
+
+  ' $isNext = True
+  '' OLD CODE
+  ' Try Mkdir ButtonBox2.Text &/ ".work"
+  ' Try Kill ButtonBox2.Text &/ ".work" &/ "game.bin"
+  '
+  ' $watch = New Watch(ButtonBox2.Text &/ ".work") As "Watch"
+  ' MlookAtgames.setdir(ButtonBox1.Text)
+  ' $Pathlist = MlookAtgames.look()["Path"]
+  ' $isNext = True
+  ' Me.Copy_old()
+  ' Timer1.Start
 
 End
 
@@ -46,6 +121,12 @@ Public Sub Watch_Close()
 End
 
 Public Sub Copy()
+
+
+
+End
+
+Public Sub Copy_old() ''OLD CODE
 
   Dim a As String[]
   Dim d As String
@@ -206,6 +287,16 @@ Public Sub ButtonBox2_Click()
 
   If Not Dialog.SelectDirectory() Then
     ButtonBox2.Text = Dialog.path
+  Endif
+
+End
+
+Public Sub Form_Close()
+
+  If $Ramdiskuse Then
+
+    Shell "umount /tmp/hactoolgui" Wait
+    Shell "rm -r /tmp/hactoolgui" Wait
   Endif
 
 End

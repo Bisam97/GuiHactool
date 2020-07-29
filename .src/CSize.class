@@ -1,0 +1,38 @@
+' Gambas class file
+
+Private $sizeByte As Long
+
+Property Read Byte As Long
+Property Read KiloByte As Float
+Property Read MegaByte As Float
+Property Read GigaByte As Float
+
+Public Sub _new(size As Long)
+
+  $sizeByte = size
+
+End
+
+Private Function Byte_Read() As Long
+
+  Return $sizeByte
+
+End
+
+Private Function KiloByte_Read() As Float
+
+  Return $sizeByte / 1000
+
+End
+
+Private Function MegaByte_Read() As Float
+
+  Return $sizeByte / 1000 / 1000
+
+End
+
+Private Function GigaByte_Read() As Float
+
+  Return $sizeByte / 1000 / 1000 / 1000
+
+End

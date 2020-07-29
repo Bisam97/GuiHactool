@@ -54,22 +54,27 @@ Public Sub LookToInstalledTitleSDXML(Path As String[]) As String[]
   Dim element As XmlElement
   Dim a As XmlElement
 
-  xml = New XmlExplorer( New XmlDocument(User.home &/ ".switch/SDTitles.xml"))
-  For Each element In xml.Document.GetElementsByTagName("switchTitle")[0].ChildElements
-    Print
-    For Each a In element.ChildElements
+  If Exist(User.home &/ ".switch/SDTitles.xml") Then
 
-      If Path.Find($dirForXml &/ a.Attributes["path"]) == -1 Then Break
-      Path[Path.Find($dirForXml &/ a.Attributes["path"])] = a.Name & " | " & element.Attributes["name"]
+
+    xml = New XmlExplorer( New XmlDocument(User.home &/ ".switch/SDTitles.xml"))
+    For Each element In xml.Document.GetElementsByTagName("switchTitle")[0].ChildElements
+      Print
+      For Each a In element.ChildElements
+
+        If Path.Find($dirForXml &/ a.Attributes["path"]) == -1 Then Break
+        Path[Path.Find($dirForXml &/ a.Attributes["path"])] = a.Name & " | " & element.Attributes["name"]
+
+
+
+      Next
 
 
 
     Next
-
-
-
-  Next
+  Endif
   Return Path
+
 
 End
 
