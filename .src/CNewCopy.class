@@ -1,0 +1,59 @@
+' Gambas class file
+
+Private $toCopy As String[]       ''queue of the pending games for copy
+Private $toDecrypt As String[]    ''queue of the pending games for decrypt
+Private $isCopy As String         ''For Extern Read
+Private $isDecrypt As String      ''For Extern Read
+Private $copyPerzent As Float     ''For Extern Read
+Private $decryptPerzent As Float  ''For Extern Read
+
+Property Read isCopy As String        ''Return the SDPath of the current game that copy
+Property Read isDecrypt As String     ''Return the SDPath of the current game Decyption
+Property Read copyPerzent As Float    ''Return the the Copy progress
+Property Read decryptPerzent As Float ''Return the Decrypt progress
+
+Public Sub main(c As Collection)
+
+  Dim s As String
+
+  For Each s In c
+
+  Next
+
+End
+
+Private Sub Copy(s As String)
+
+
+
+End
+
+Private Sub Decrypt(s As String)
+
+
+
+End
+
+Private Function isCopy_Read() As String
+
+
+
+End
+
+Private Function isDecrypt_Read() As String
+
+
+
+End
+
+Private Function copyPerzent_Read() As Float
+
+
+
+End
+
+Private Function decryptPerzent_Read() As Float
+
+
+
+End

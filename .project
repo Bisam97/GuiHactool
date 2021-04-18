@@ -8,6 +8,7 @@ Component=gb.gui
 Component=gb.form
 Component=gb.inotify
 Component=gb.xml
+Environment="EDITOR=xed"
 TabSize=2
 Language=en_US
 SourcePath=/media/bisam97/Bibiliotek
